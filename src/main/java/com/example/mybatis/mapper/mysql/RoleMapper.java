@@ -16,9 +16,20 @@ public interface RoleMapper {
     @Options(useGeneratedKeys = true)
     int insert(Role role);
 
+    int batchInsert(List<Role> roleList);
+
+    @InsertProvider(type = RoleSqlProvider.class, method = "annotateBatchInsert")
+    @Options(useGeneratedKeys = true)
+    int annotateBatchInsert(List<Role> roleList);
+
     @Select("select * from role where id = #{id}")
     Role selectByPrimaryKey(Integer id);
 
     @SelectProvider(type = RoleSqlProvider.class, method = "selectRolesByCondition")
     List<Role> selectRolesByCondition(Map<String, Object> params);
+
+    @InsertProvider(type = RoleSqlProvider.class, method = "merge")
+    @Options(useGeneratedKeys = true)
+    int merge(Role role);
+
 }

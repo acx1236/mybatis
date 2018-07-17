@@ -9,6 +9,7 @@ import com.example.mybatis.model.postgresql.WorkOrderManage;
 import com.example.mybatis.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +57,30 @@ public class UserServiceImpl implements IUserService {
         Role role = new Role();
         role.setRoleLevel(1);
         roleMapper.insert(role);
+        return "success. id = " + role.getId();
+    }
+
+    @Override
+    @Transactional
+    public String batchInsertRole() {
+        List<Role> roleList = new ArrayList<>();
+        Role role1 = new Role();
+        role1.setName("annotateBatch1");
+        roleList.add(role1);
+        Role role2 = new Role();
+        role2.setName("annotateBatch2");
+        roleList.add(role2);
+        int batchInsert = roleMapper.annotateBatchInsert(roleList);
+        return "batchInsert = " + batchInsert;
+    }
+
+    @Override
+    public String mergeRole() {
+        Role role = new Role();
+        role.setId(3);
+        role.setName("用户111");
+        role.setDescription("xxxx");
+        roleMapper.merge(role);
         return "success. id = " + role.getId();
     }
 }

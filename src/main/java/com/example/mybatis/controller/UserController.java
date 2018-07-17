@@ -43,4 +43,14 @@ public class UserController {
         return userService.insertRole();
     }
 
+    @RequestMapping("batchInsertRole")
+    public String batchInsertRole() {
+        return userService.batchInsertRole();
+    }
+
+    @RequestMapping("mergeRole")
+    public String mergeRole() {
+        return userService.mergeRole();
+    }
+
 }

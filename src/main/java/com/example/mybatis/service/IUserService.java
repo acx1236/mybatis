@@ -18,4 +18,8 @@ public interface IUserService {
 
     String insertRole();
 
+    String batchInsertRole();
+
+    String mergeRole();
+
 }
